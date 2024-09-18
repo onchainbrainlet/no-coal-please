@@ -1,0 +1,8 @@
+.custom-ni-button {
+  opacity: 0.7; /* Lower opacity when not hovered */
+  transition: opacity 0.15s; /* Smooth transition for opacity change */
+}
+
+.custom-ni-button:hover {
+  opacity: 1; /* Full opacity when hovered */
+}
