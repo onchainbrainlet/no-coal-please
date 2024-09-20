@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "No Coal Please",
-    "version": "1.0",
+    "version": "1.0.1",
     "description": "Adds a 'Not Interested' shortcut button to twitter posts on the 'For You' page",
     "content_scripts": [
         {
