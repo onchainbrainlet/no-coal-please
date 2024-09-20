@@ -5,6 +5,30 @@ function simulateClick(element) {
   element.click();
 }
 
+function showExplosionGif(event) {
+  const explosionGif = document.createElement('img');
+  const gifUrl = chrome.runtime.getURL('icons/explosion.gif');
+
+  gifXPos = event.clientX  + window.scrollX - 500;
+  gifYpos = event.clientY + window.scrollY - 100;
+
+  explosionGif.src = gifUrl;
+  explosionGif.style.position = 'absolute';
+  explosionGif.style.left = `${gifXPos}px`;
+  explosionGif.style.top = `${gifYpos}px`;
+  explosionGif.style.pointerEvents = 'none';
+  explosionGif.style.zIndex = 1000;
+  explosionGif.style.width = '500px'; // Adjust size as needed
+  explosionGif.style.height = '500px'; // Adjust size as needed
+
+  document.body.appendChild(explosionGif);
+
+  // Remove the GIF after it has played once
+  setTimeout(() => {
+    explosionGif.remove();
+  }, 600); // Adjust the timeout to match the duration of the GIF
+}
+
 // Function to add the custom "Not Interested" (NI) button next to the ellipsis
 function addNotInterestedButton(post) {
   // Prevent adding multiple buttons to the same post
@@ -41,7 +65,7 @@ function addNotInterestedButton(post) {
   ellipsisButton.parentNode.insertBefore(niButton, ellipsisButton);
 
   // Add click event listener to the custom button
-  niButton.addEventListener('click', () => {
+  niButton.addEventListener('click', (event) => {
     // Click the ellipsis button to open the menu
     simulateClick(ellipsisButton);
 
@@ -61,9 +85,10 @@ function addNotInterestedButton(post) {
 
         if (notInterestedButton) {
           simulateClick(notInterestedButton);
+          // Show an explosion GIF on click
+          showExplosionGif(event);
         } else if (retries > 0) {
           attemptToClickNotInterested(retries - 1, delay);
-        } else {
         }
       }, delay);
     }
@@ -92,7 +117,7 @@ function isForYouPage() {
   }
 
   // Select the top bar's tablist
-  const tabList = document.querySelector('div[role="tablist"]');
+  const tabList = document.querySelector('div[data-testid="ScrollSnap-List"]');
   if (!tabList) {
     return false;
   }
@@ -154,23 +179,9 @@ function init() {
   onLocationChanged(handleUI);
 
   // Observe DOM changes to handle dynamically loaded content on /home
-  const observer = new MutationObserver((mutations) => {
+  const observer = new MutationObserver(() => {
     if (isForYouPage()) {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (
-            node.nodeType === 1 &&
-            node.matches('article[data-testid="tweet"]')
-          ) {
-            addNotInterestedButton(node);
-          } else if (node.nodeType === 1) {
-            const nestedPosts = node.querySelectorAll(
-              'article[data-testid="tweet"]'
-            );
-            nestedPosts.forEach((post) => addNotInterestedButton(post));
-          }
-        });
-      });
+      handleUI();
     }
   });
 

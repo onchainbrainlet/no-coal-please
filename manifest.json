@@ -17,6 +17,16 @@
             "run_at": "document_idle"
         }
     ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "icons/explosion.gif"
+            ],
+            "matches": [
+                "*://x.com/*"
+            ]
+        }
+    ],
     "icons": {
         "16": "icons/icon-16.png",
         "48": "icons/icon-48.png",
