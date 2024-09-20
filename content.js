@@ -1,7 +1,6 @@
 // Function to simulate a mouse click on an element
 function simulateClick(element) {
   if (!element) return;
-  element.scrollIntoView({ behavior: 'smooth', block: 'center' });
   element.click();
 }
 
