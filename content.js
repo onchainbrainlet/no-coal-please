@@ -77,10 +77,7 @@ function addNotInterestedButton(post) {
         );
 
         // Search for the menu item that includes 'not interested'
-        const notInterestedButton = Array.from(menuItems).find((item) => {
-          const text = item.innerText.trim().toLowerCase();
-          return text.includes('not interested');
-        });
+        const notInterestedButton = menuItems[0];
 
         if (notInterestedButton) {
           simulateClick(notInterestedButton);
