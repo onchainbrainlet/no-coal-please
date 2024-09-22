@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Settings</title>
+    <style>
+      body {
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        width: 300px;
+        background: url('assets/coal-alarm.png') no-repeat center center;
+        background-size: cover;
+      }
+
+      h1 {
+        margin-top: 0px;
+      }
+
+      label {
+        display: block;
+      }
+
+      input[type='number'] {
+        width: 50%;
+        padding: 5px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:active {
+        background-color: #0056b3;
+      }
+
+      .toggle-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .toggle-container label {
+        margin-left: 10px;
+      }
+
+      .saved-message {
+        display: none;
+        margin-top: 10px;
+        color: green;
+        animation: fadeInOut 2s ease-in-out;
+      }
+      @keyframes fadeInOut {
+        0% {
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Settings</h1>
+    <div class="toggle-container">
+      <input type="checkbox" id="enableFeature" />
+      <label for="enableFeature">Enable Max Likes Threshold</label>
+    </div>
+    <label for="maxLikes">Max Number of Likes:</label>
+    <input type="number" id="maxLikes" min="0" />
+    <br />
+    <button id="saveButton">Save</button>
+    <div class="saved-message" id="savedMessage"></div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
